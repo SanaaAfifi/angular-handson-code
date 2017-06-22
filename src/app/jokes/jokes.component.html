@@ -1,10 +1,6 @@
-<div class="col-md-6 col-md-offset-3">
-    <div class="panel panel-primary">
-        <div class="panel-heading">
-            jokes list
-        </div>
-    </div>
-    <div class="box profile-info n-border-top" ng-show="showpost">
+<div class="col-md-9 ">
+
+    <div class="box profile-info n-border-top" >
         <form>
             <textarea class="form-control input-lg p-text-area" rows="2" placeholder="Whats in your mind today?" name="newcontent" [(ngModel)]="newJoke"
                 #name="ngModel"></textarea>
@@ -21,15 +17,15 @@
     </div>
 
 
-    <div>
-        <table *ngFor="let joke of JokesList; let i = index" [attr.data-index]="i">
+   <!-- <div>
+      <table *ngFor="let joke of JokesList; let i = index" [attr.data-index]="i">
             <tbody>
                 <tr>
 
                     <a [routerLink]="['/profile', joke.PostedBy]">{{joke.PostedBy}}</a>
 
                     <td>{{joke.PostedBy}}</td>
-                    <!--<td>{{Joke.UserImage}}</td>-->
+                    <!--<td>{{Joke.UserImage}}</td>
                     <td>{{joke.Content}}
                     </td>
                 </tr>
@@ -45,53 +41,58 @@
                 </tr>
             </tbody>
         </table>
-    </div>
+    </div>-->
 </div>
 
-<ul *ngFor="let joke of JokesList; let i = index" [attr.data-index]="i">
-    <li>
-        <div class="box box-widget">
-            <div class="box-header with-border">
-                <div class="user-block">
-                    <img class="img-circle" src="../../assets/guy-3.jpg" alt="User Image">
-                    <span class="username"><a [routerLink]="['/profile', joke.PostedBy]">{{joke.PostedBy}}</a></span>
-                    <span class="description">{{joke.PostedDate}}</span>
+
+<div class="container bootstrap snippet" *ngFor="let joke of JokesList; let i = index" [attr.data-index]="i">
+    <div class="col-sm-10">
+        <div class=" panel panel-white post panel-shadow">
+            <div class="post-heading">
+                <div class="pull-left image">
+                    <img src="https://bootdey.com/img/Content/user_1.jpg" class="img-circle avatar" alt="user profile image">
+                </div>
+                <div class="pull-left meta">
+                    <div class="title h5">
+                        <span class="username"><a [routerLink]="['/profile', joke.PostedBy]">{{joke.PostedBy}}</a></span>
+                        made a post.
+                    </div>
+                    <h6 class="text-muted time">{{joke.PostedDate}}</h6>
                 </div>
             </div>
-
-            <div class="box-body" style="display: block;">
-                <p>
-                   {{joke.Content}}
-                </p>
-                <button type="button" class="btn btn-default btn-xs"><i class="fa fa-share"></i> Share</button>
-                <button type="button" class="btn btn-default btn-xs"><i class="fa fa-thumbs-o-up"></i> Like</button>
-                <span class="pull-right text-muted">{{joke.UpVotes}}</span>
-                <span class="pull-right text-muted">{{joke.DownVotes}}</span>
+            <div class="post-description">
+                <p> {{joke.Content}}</p>
+                <div class="stats">
+                    <a href="#" class="btn btn-default stat-item">
+                        <i class="fa fa-thumbs-up icon"></i>{{joke.UpVotes}}
+                    </a>
+                    <a href="#" class="btn btn-default stat-item">
+                        <i class="fa fa-share icon"></i>{{joke.DownVotes}}
+                    </a>
+                </div>
             </div>
-            <div class="box-footer box-comments" style="display: block;">
-                <ul *ngFor="let comment of joke.Comments">
-                    <li>
-                        <div class="box-comment">
-                            <img class="img-circle img-sm" src="../../assets/guy-2.jpg" alt="User Image">
-                            <div class="comment-text">
-                                <span class="username">
-                        {{comment.PostedBy}}
-                          <span class="text-muted pull-right">{{comment.PostedDate}</span>
-                                </span>
-                                {{comment.Content}
+            <div class="post-footer">
+                <div class="input-group">
+                    <input class="form-control" placeholder="Add a comment" type="text">
+                    <span class="input-group-addon">
+                        <a href="#"><i class="fa fa-edit"></i></a>  
+                    </span>
+                </div>
+                <ul class="comments-list" *ngFor="let comment of joke.Comments">
+                    <li class="comment">
+                        <a class="pull-left" href="#">
+                            <img class="avatar" src="https://bootdey.com/img/Content/user_1.jpg" alt="avatar">
+                        </a>
+                        <div class="comment-body">
+                            <div class="comment-heading">
+                                <h4 class="user">{{comment.PostedBy}}</h4>
+                                <h5 class="time">{{comment.PostedDate}}</h5>
                             </div>
+                            <p>{{comment.PostedBy}}</p>
                         </div>
                     </li>
                 </ul>
             </div>
-            <div class="box-footer" style="display: block;">
-                <form action="#" method="post">
-                    <img class="img-responsive img-circle img-sm" src="../../assets/guy-3.jpg" alt="Alt Text">
-                    <div class="img-push">
-                        <input type="text" class="form-control input-sm" placeholder="Press enter to post comment" data-cip-id="cIPJQ342845641">
-                    </div>
-                </form>
-            </div>
         </div>
-    </li>
-</ul>
+    </div>
+</div>

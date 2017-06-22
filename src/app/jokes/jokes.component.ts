@@ -32,7 +32,6 @@ export class JokesComponent implements OnInit {
       ngOnInit() {
             this.activatedRoute.params.subscribe((params: Params) => {
                   this.userName = params['PostedBy'];
-                  console.log(this.userName);
             });
             this.getAllJokes();
       }
@@ -58,7 +57,7 @@ export class JokesComponent implements OnInit {
                   addNewJoke(joke).
                   subscribe(
                   result => { 
-                        this.JokesList.unshift(result);
+                         this.getAllJokes();
                    },
                   error => {
                         this.alertService.error(error.json().error_description);
