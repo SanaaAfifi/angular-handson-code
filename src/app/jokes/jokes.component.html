@@ -1,0 +1,97 @@
+<div class="col-md-6 col-md-offset-3">
+    <div class="panel panel-primary">
+        <div class="panel-heading">
+            jokes list
+        </div>
+    </div>
+    <div class="box profile-info n-border-top" ng-show="showpost">
+        <form>
+            <textarea class="form-control input-lg p-text-area" rows="2" placeholder="Whats in your mind today?" name="newcontent" [(ngModel)]="newJoke"
+                #name="ngModel"></textarea>
+        </form>
+        <div class="box-footer box-form">
+            <button type="button" class="btn btn-azure pull-right" (click)="PostNewJoke()">Post</button>
+            <ul class="nav nav-pills">
+                <li><a href="#"><i class="fa fa-map-marker"></i></a></li>
+                <li><a href="#"><i class="fa fa-camera"></i></a></li>
+                <li><a href="#"><i class=" fa fa-film"></i></a></li>
+                <li><a href="#"><i class="fa fa-microphone"></i></a></li>
+            </ul>
+        </div>
+    </div>
+
+
+    <div>
+        <table *ngFor="let joke of JokesList; let i = index" [attr.data-index]="i">
+            <tbody>
+                <tr>
+
+                    <a [routerLink]="['/profile', joke.PostedBy]">{{joke.PostedBy}}</a>
+
+                    <td>{{joke.PostedBy}}</td>
+                    <!--<td>{{Joke.UserImage}}</td>-->
+                    <td>{{joke.Content}}
+                    </td>
+                </tr>
+                <tr>
+                    <td>{{joke.UpVotes}}</td>
+                    <td>{{joke.DownVotes}}</td>
+                </tr>
+                <tr>
+                    <td>
+                        <button (click)="VoteUp(true,joke.JokeId,i)">Up</button></td>
+                    <td><button (click)="VoteUp(false,joke.JokeId,i)">Down</button></td>
+                    <td><button (click)="Hide(joke.JokeId,i)">Hide</button></td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+
+<ul *ngFor="let joke of JokesList; let i = index" [attr.data-index]="i">
+    <li>
+        <div class="box box-widget">
+            <div class="box-header with-border">
+                <div class="user-block">
+                    <img class="img-circle" src="../../assets/guy-3.jpg" alt="User Image">
+                    <span class="username"><a [routerLink]="['/profile', joke.PostedBy]">{{joke.PostedBy}}</a></span>
+                    <span class="description">{{joke.PostedDate}}</span>
+                </div>
+            </div>
+
+            <div class="box-body" style="display: block;">
+                <p>
+                   {{joke.Content}}
+                </p>
+                <button type="button" class="btn btn-default btn-xs"><i class="fa fa-share"></i> Share</button>
+                <button type="button" class="btn btn-default btn-xs"><i class="fa fa-thumbs-o-up"></i> Like</button>
+                <span class="pull-right text-muted">{{joke.UpVotes}}</span>
+                <span class="pull-right text-muted">{{joke.DownVotes}}</span>
+            </div>
+            <div class="box-footer box-comments" style="display: block;">
+                <ul *ngFor="let comment of joke.Comments">
+                    <li>
+                        <div class="box-comment">
+                            <img class="img-circle img-sm" src="../../assets/guy-2.jpg" alt="User Image">
+                            <div class="comment-text">
+                                <span class="username">
+                        {{comment.PostedBy}}
+                          <span class="text-muted pull-right">{{comment.PostedDate}</span>
+                                </span>
+                                {{comment.Content}
+                            </div>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+            <div class="box-footer" style="display: block;">
+                <form action="#" method="post">
+                    <img class="img-responsive img-circle img-sm" src="../../assets/guy-3.jpg" alt="Alt Text">
+                    <div class="img-push">
+                        <input type="text" class="form-control input-sm" placeholder="Press enter to post comment" data-cip-id="cIPJQ342845641">
+                    </div>
+                </form>
+            </div>
+        </div>
+    </li>
+</ul>
