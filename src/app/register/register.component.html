@@ -26,13 +26,12 @@
       <input type="password" class="form-control" name="password" [(ngModel)]="model.Password" #password="ngModel" required />
       <div *ngIf="f.submitted && !password.valid" class="help-block">Password is required</div>
       </div>
-    <div class="form-group" [ngClass]="{ 'has-error': f.submitted && !password.valid || (f.submitted && password!=confirmPassword)}">
+    <div class="form-group" [ngClass]="{ 'has-error': f.submitted && !confirmPassword.valid}">
       <label for="confirmpassword">Confirm Password</label>
       <input type="password" class="form-control" name="confirmpassword" [(ngModel)]="model.ConfirmPassword" #confirmPassword="ngModel"
         required />
       <div *ngIf="f.submitted && !password.valid" class="help-block"> Confirm Password is required</div>
     
-      <div *ngIf="f.submitted && password!=confirmPassword" class="help-block"> Password is not matched</div>
 
       </div>
   

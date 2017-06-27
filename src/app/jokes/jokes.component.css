@@ -1516,3 +1516,6 @@ a, a:hover {
 .post .post-footer .comments-list .comment > .comments-list {
   margin-left: 50px;
 }
+
+.fa-thumbs-up:before{content:"\f164";}
+.fa-thumbs-down:before{content:"\f165";}

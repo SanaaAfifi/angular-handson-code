@@ -21,11 +21,12 @@ export class JokesComponent implements OnInit {
       userName: string;
 
       public newJoke: string = '';
+      public newComment: string = '';
 
       constructor(private activatedRoute: ActivatedRoute,
-       private jokesService: JokesService, 
-      private config: AppConfig,
-      private alertService: AlertService,) {
+            private jokesService: JokesService,
+            private config: AppConfig,
+            private alertService: AlertService, ) {
 
       }
 
@@ -56,15 +57,12 @@ export class JokesComponent implements OnInit {
             this.jokesService.
                   addNewJoke(joke).
                   subscribe(
-                  result => { 
-                         this.getAllJokes();
-                   },
+                  result => {
+                        this.getAllJokes();
+                  },
                   error => {
                         this.alertService.error(error.json().error_description);
                   });
-
-            
-
             this.newJoke = '';
       }
 
@@ -82,5 +80,60 @@ export class JokesComponent implements OnInit {
             this.jokesService.
                   hide(jokeId).subscribe(result => { this.JokesList.splice(index, 1) });
       }
+      addComment(event, jokeId: number) {
+            var newComment = "";
+            newComment = event.target.value;
+            if (newComment.trim() != "") {
+                  var comment: any = { PostedBy: localStorage.getItem(this.config.UserName), Content: newComment };
+
+                  this.jokesService.
+                        addComment(comment, jokeId).
+                        subscribe(
+                        result => {
+                              this.getAllJokes();
+                        },
+                        error => {
+                              this.alertService.error(error.json().error_description);
+                        });
+                  newComment = "";
+                  event.target.value = "";
+            }
+      }
+
+
+
+      // to work on this
+      timeSince(date: Date) {
+
+            var monthNames = ["Jan", "Feb", "Mar", "Apr", "May", "June",
+                  "July", "Aug", "Sep", "Oct", "Nov", "Dec"
+            ];
+            var diff = new Date().getTime() - date.getTime();
+            var seconds = Math.floor(diff / 1000);
+
+            var interval = Math.floor(seconds / 31536000);
+
+            if (interval > 1) {
+                  return interval + " years";
+            }
+            interval = Math.floor(seconds / 2592000);
+            if (interval > 1) {
+                  return interval + " months";
+            }
+            interval = Math.floor(seconds / 86400);
+            if (interval > 1) {
+                  return interval + " days";
+            }
+            interval = Math.floor(seconds / 3600);
+            if (interval > 1) {
+                  return interval + " hours";
+            }
+            interval = Math.floor(seconds / 60);
+            if (interval > 1) {
+                  return interval + " minutes";
+            }
+            return Math.floor(seconds) + " seconds";
+      }
+
 
 }

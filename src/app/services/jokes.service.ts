@@ -14,7 +14,6 @@ export class JokesService {
         this.JokesServiceUrl = config.JokesServiceUrl;
     }
     getAllJokes(): Observable<any> {
-        var headers = new Headers();
         let url = this.JokesServiceUrl;
         return this.httpService.get(url, this.jwt()).
             map(
@@ -26,22 +25,19 @@ export class JokesService {
     }
 
     getByUserID(UserID: string): Observable<any> {
-        var headers = new Headers();
         let url = this.JokesServiceUrl;
         return this.httpService.get(url + '/GetByUser/' + UserID, this.jwt()).
             map(response => response.json()).do(data => JSON.stringify(data));
     }
 
-    hide(jokeID: number): Observable<any> {
-        var headers = new Headers();
-        let url = this.JokesServiceUrl;
-        return this.httpService.post(url + '/Hide/' + jokeID, this.jwt()).
+    hide(jokeId: number): Observable<any> {
+        let url = this.JokesServiceUrl + '/Hide/' + jokeId;
+        return this.httpService.post(url, this.jwt()).
             map(response => response.json()).do(data => JSON.stringify(data));
     }
 
 
     addNewJoke(joke: any): Observable<any> {
-        var headers = new Headers();
         let body = joke;
         let url = this.JokesServiceUrl;
         return this.httpService.post(url, body, this.jwt()).
@@ -51,11 +47,20 @@ export class JokesService {
                     data => JSON.stringify(data)
                     );
     }
+    addComment(comment: any,jokeId: number): Observable<any> {
+        let body = comment;
+        let url = this.JokesServiceUrl+'/PostComment/'+jokeId;
+        return this.httpService.post(url, body, this.jwt()).
+            map(
+                response => response.json()
+                ).do(
+                    data => JSON.stringify(data)
+                    );
+    }
 
     vote(jokeId: number, up: boolean): Observable<any> {
-        var headers = new Headers();
-        let url = this.JokesServiceUrl;
-        return this.httpService.put(url + '/Vote/' + jokeId + '/' + up+ '/' + localStorage.getItem(this.config.UserName) , this.jwt()).
+        let url = this.JokesServiceUrl+ '/Vote/' + jokeId + '/' + up+ '/' + localStorage.getItem(this.config.UserName) ;
+        return this.httpService.put(url , this.jwt()).
             map(response => response.json()).do(data => JSON.stringify(data));
     }
     private jwt() {
